@@ -14,15 +14,15 @@
             padding: 0;
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffffff;
-            color: #000000;
-            overflow: hidden;
-            position: relative;
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text color */
+            overflow: hidden; /* Prevent scrollbars during confetti animation */
+            position: relative; /* So we can control z-index of confetti */
         }
 
         /* Header */
         header {
-            background-color: #ffffff;
+            background-color: #ffffff; /* White background */
             padding: 20px;
         }
 
@@ -44,13 +44,14 @@
             position: relative;
             width: 100%;
             height: 200px;
-            background-color: #f93184;
+            background-color: #f93184; /* Pink color for the scratch card */
             margin: 20px 0;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 10;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow for a more prominent effect */
+            z-index: 10; /* Ensure the scratch card stays on top of confetti */
         }
+
 
         #scratchCanvas {
             width: 100%;
@@ -58,7 +59,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            background-color: #cccccc;
+            background-color: #cccccc; /* Gray background for the scratch layer */
         }
 
         .ribbons {
@@ -76,7 +77,7 @@
             top: 0;
             height: 100%;
             width: 50%;
-            background-color: #f93184;
+            background-color: #f93184; /* Pink color for ribbons */
         }
 
         .ribbon-left {
@@ -87,24 +88,26 @@
             right: 0;
         }
 
+        /* Coupon box styles inside the scratch card */
         .discount-message {
             display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            color: #f93184;
+            background-color: #ffffff; /* White background */
+            color: #f93184; /* Pink color for the discount message */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            z-index: 15;
+            z-index: 15; /* Ensure it's on top of the scratch card */
             width: 100%;
             height: 100%;
             border: 2px dotted #f93184;
         }
 
+        /* Coupon code box with dotted border */
         .coupon-box {
             background-color: #f93184;
             color: #fff;
@@ -114,7 +117,7 @@
             display: inline-block;
             margin-top: 10px;
             width: 60%;
-            border: 2px dotted #fff;
+            border: 2px dotted #fff; /* Dotted border for the coupon */
         }
 
         .copy-btn {
@@ -134,11 +137,11 @@
             border: 2px solid #fff;
         }
 
+        /* New Button Styling */
         .action-buttons {
             display: flex;
             justify-content: center;
             margin-top: 20px;
-            gap: 10px;
         }
 
         .action-btn {
@@ -152,56 +155,32 @@
             display: flex;
             align-items: center;
             text-decoration: none;
-            flex-grow: 1; /* Make buttons grow to fill space */
-            justify-content: center;
         }
 
         .action-btn i {
-            margin-right: 8px;
+            margin-right: 8px; /* Space between icon and text */
         }
 
         .action-btn:hover {
-            background-color: #c62470;
+            background-color: #c62470; /* Darker shade of pink on hover */
         }
 
-        /* Footer */
         footer {
-            background-color: #f93184;
+            background-color: #ffffff; /* White background */
             padding: 10px;
             position: fixed;
             width: 100%;
             bottom: 0;
             text-align: center;
-            color: #fff;
+            color: #000000; /* Black text color */
         }
-
-        /* Responsive Design for Mobile */
-        @media (max-width: 768px) {
-            .action-btn {
-                font-size: 14px;
-                padding: 10px 15px; /* Slightly smaller button on mobile */
-            }
-
-            .logo {
-                width: 120px; /* Resize logo for mobile */
-            }
-
-            .scratch-card {
-                height: 180px; /* Slightly smaller scratch card */
-            }
-
-            .content {
-                padding: 20px;
-            }
-        }
-
     </style>
 </head>
 <body>
     <!-- Header: Logo Section -->
     <div style="background-color:#f93184;color:white;height:30px;padding:6px;display: flex;
             align-items: center;font-weight:600;">
-        <marquee behavior="alternate" style="font-size: 14px; color: #fff; animation: marquee 10s linear infinite;">
+    	<marquee behavior="alternate" style="font-size: 14px; color: #fff; animation: marquee 10s linear infinite;">
             Refer Ladyfair App today and get upto RS 500 OFF on your next Order.. <sup>(T&C Apply)</sup>
         </marquee>
     </div>
@@ -244,7 +223,7 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer style="background-color:#f93184;color:#fff;font-weight:600;font-size: 14px;">
         <p>Developed by Trinetra Softech Limited</p>
     </footer>
 
@@ -297,6 +276,7 @@
             checkIfScratched();
         }
 
+
         function stopScratching() {
             isScratching = false;
         }
@@ -343,7 +323,27 @@
                 particleCount: 20, // Number of confetti particles
                 angle: 90, // Angle of explosion (horizontal)
                 spread: 90, // Spread of confetti particles
-                origin: { x: 0, y: 0.5 }, // Origin at the left side of the screen
+                origin: { x: 0, y: 0.5 }, // Origin at the left side of the screen (y = 0.5 for middle height)
+                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
+                zIndex: 1 // Keep behind the scratch card
+            });
+
+            // Confetti blast from the center of the page (optional for a fuller effect)
+            confetti({
+                particleCount: 10, // Number of confetti particles
+                angle: 90, // Angle of explosion (horizontal)
+                spread: 80, // Spread of confetti particles
+                origin: { x: 0.5, y: 0.5 }, // Origin at the center of the screen
+                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
+                zIndex: 1 // Keep behind the scratch card
+            });
+
+            // Confetti blast from the right side of the page
+            confetti({
+                particleCount: 20, // Number of confetti particles
+                angle: 90, // Angle of explosion (horizontal)
+                spread: 90, // Spread of confetti particles
+                origin: { x: 1, y: 0.5 }, // Origin at the right side of the screen (y = 0.5 for middle height)
                 colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
                 zIndex: 1 // Keep behind the scratch card
             });

@@ -17,6 +17,7 @@
             background-color: #ffffff; /* White background */
             color: #000000; /* Black text color */
             overflow: hidden; /* Prevent scrollbars during confetti animation */
+            position: relative; /* So we can control z-index of confetti */
         }
 
         /* Header */
@@ -48,6 +49,7 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10; /* Ensure the scratch card stays on top of confetti */
         }
 
         #scratchCanvas {
@@ -314,15 +316,15 @@
             scratchCanvas.style.display = 'none'; // Remove the pink scratch layer
         }
 
-        // Trigger Confetti falling effect
+        // Trigger Confetti falling effect behind the scratch card
         function triggerConfetti() {
-            // Confetti blast from the left side of the page
             confetti({
                 particleCount: 20, // Number of confetti particles
                 angle: 90, // Angle of explosion (horizontal)
                 spread: 90, // Spread of confetti particles
                 origin: { x: 0, y: 0.5 }, // Origin at the left side of the screen (y = 0.5 for middle height)
-                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933']
+                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
+                zIndex: 1 // Keep behind the scratch card
             });
 
             // Confetti blast from the center of the page (optional for a fuller effect)
@@ -331,7 +333,8 @@
                 angle: 90, // Angle of explosion (horizontal)
                 spread: 80, // Spread of confetti particles
                 origin: { x: 0.5, y: 0.5 }, // Origin at the center of the screen
-                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933']
+                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
+                zIndex: 1 // Keep behind the scratch card
             });
 
             // Confetti blast from the right side of the page
@@ -340,7 +343,8 @@
                 angle: 90, // Angle of explosion (horizontal)
                 spread: 90, // Spread of confetti particles
                 origin: { x: 1, y: 0.5 }, // Origin at the right side of the screen (y = 0.5 for middle height)
-                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933']
+                colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
+                zIndex: 1 // Keep behind the scratch card
             });
         }
 

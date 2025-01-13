@@ -48,9 +48,10 @@
             margin: 20px 0;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow for a more prominent effect */
             z-index: 10; /* Ensure the scratch card stays on top of confetti */
         }
+
 
         #scratchCanvas {
             width: 100%;
@@ -192,7 +193,7 @@
     <!-- Main Content: Scratch Card Section -->
     <main>
         <div class="content">
-            <p>Scratch the card below to reveal your discount!</p>
+            <p><b></b>Scratch the card below to reveal your discount!</b></p>
             <div class="scratch-card" id="scratchCard">
                 <canvas id="scratchCanvas"></canvas>
                 <div class="ribbons" id="ribbons">

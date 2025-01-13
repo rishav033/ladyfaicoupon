@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ladyfair Scratch Card</title>
-    <!-- Include Font Awesome CDN for icons -->
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
     <style>
         /* Basic styles */
         body, html {
@@ -14,25 +17,30 @@
             padding: 0;
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffffff; /* White background */
-            color: #000000; /* Black text color */
-            overflow: hidden; /* Prevent scrollbars during confetti animation */
-            position: relative; /* So we can control z-index of confetti */
+            background-color: #ffffff;
+            color: #000000;
+            position: relative;
+            overflow: hidden; /* Ensure no scrollbars */
         }
 
         /* Header */
         header {
-            background-color: #ffffff; /* White background */
+            background-color: #ffffff;
             padding: 20px;
         }
 
         .logo {
-            width: 150px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            box-shadow: 0px 4px 8px rgba(255, 51, 112, 0.6);
         }
 
         /* Main Content */
         main {
-            padding: 50px 20px;
+            padding: 0;
+            margin: 0;
+            position: relative;
         }
 
         .content {
@@ -44,14 +52,12 @@
             position: relative;
             width: 100%;
             height: 200px;
-            background-color: #f93184; /* Pink color for the scratch card */
+            background-color: #f93184;
             margin: 20px 0;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow for a more prominent effect */
-            z-index: 10; /* Ensure the scratch card stays on top of confetti */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
-
 
         #scratchCanvas {
             width: 100%;
@@ -59,7 +65,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            background-color: #cccccc; /* Gray background for the scratch layer */
+            background-color: #cccccc;
         }
 
         .ribbons {
@@ -77,7 +83,7 @@
             top: 0;
             height: 100%;
             width: 50%;
-            background-color: #f93184; /* Pink color for ribbons */
+            background-color: #f93184;
         }
 
         .ribbon-left {
@@ -95,19 +101,18 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #ffffff; /* White background */
-            color: #f93184; /* Pink color for the discount message */
+            background-color: #ffffff;
+            color: #f93184;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            z-index: 15; /* Ensure it's on top of the scratch card */
+            z-index: 15;
             width: 100%;
             height: 100%;
             border: 2px dotted #f93184;
         }
 
-        /* Coupon code box with dotted border */
         .coupon-box {
             background-color: #f93184;
             color: #fff;
@@ -117,7 +122,7 @@
             display: inline-block;
             margin-top: 10px;
             width: 60%;
-            border: 2px dotted #fff; /* Dotted border for the coupon */
+            border: 2px dotted #fff;
         }
 
         .copy-btn {
@@ -158,74 +163,123 @@
         }
 
         .action-btn i {
-            margin-right: 8px; /* Space between icon and text */
+            margin-right: 8px;
         }
 
         .action-btn:hover {
-            background-color: #c62470; /* Darker shade of pink on hover */
+            background-color: #c62470;
         }
 
         footer {
-            background-color: #ffffff; /* White background */
+            background-color: #f93184;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
             padding: 10px;
             position: fixed;
-            width: 100%;
             bottom: 0;
+            left: 0;
+            width: 100%;
             text-align: center;
-            color: #000000; /* Black text color */
+            display: flex;
+            align-items: center;  /* Vertically center the text */
+            justify-content: center; /* Horizontally center the text */
+            z-index: 10;
         }
+
+
+
+        /* Responsive Styling for Screens less than 400px */
+        @media screen and (max-width: 399px) {
+            .rishav{
+                font-size: 12px;
+            }
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .content p {
+                font-size: 14px;
+            }
+
+            .scratch-card {
+                height: 200px;
+            }
+
+            .discount-message h3 {
+                font-size: 22px;
+            }
+
+            .coupon-box {
+                font-size: 16px;
+                width: 70%;
+            }
+
+            .action-btn {
+                font-size: 12px;
+                padding: 8px 15px;
+            }
+
+            footer {
+                font-size: 12px;
+                position: fixed;
+            }
+        }
+
     </style>
 </head>
 <body>
     <!-- Header: Logo Section -->
-    <div style="background-color:#f93184;color:white;height:30px;padding:6px;display: flex;
-            align-items: center;font-weight:600;">
+    <div class="rishav" style="background-color:#f93184;color:white;height:30px;padding:6px;display: flex; align-items: center;font-weight:600;">
     	<marquee behavior="alternate" style="font-size: 14px; color: #fff; animation: marquee 10s linear infinite;">
             Refer Ladyfair App today and get upto RS 500 OFF on your next Order.. <sup>(T&C Apply)</sup>
         </marquee>
     </div>
-    <header style="padding-top:20px;">
-        <img src="logo.png" alt="Logo" class="logo" 
-             style="width: 160px; height: 160px; border-radius: 50%; box-shadow: 0px 4px 8px rgba(255, 51, 112, 0.6);">
+    <header>
+        <img src="logo.png" alt="Logo" class="logo img-fluid">
     </header>
-    
 
     <!-- Main Content: Scratch Card Section -->
     <main>
-        <div class="content">
-            <p><b>Scratch the card below to reveal your discount!</b></p>
-            <div class="scratch-card" id="scratchCard">
-                <canvas id="scratchCanvas"></canvas>
-                <div class="ribbons" id="ribbons">
-                    <div class="ribbon-left"></div>
-                    <div class="ribbon-right"></div>
+        <div class="container-fluid">
+            <div class="content">
+                <p><b>Scratch the card below to reveal your discount!</b></p>
+                <div class="scratch-card" id="scratchCard">
+                    <canvas id="scratchCanvas"></canvas>
+                    <div class="ribbons" id="ribbons">
+                        <div class="ribbon-left"></div>
+                        <div class="ribbon-right"></div>
+                    </div>
+                    <div class="discount-message" id="discountMessage">
+                        <p style="color:black;">Congratulation🎉 You won a Reward of</p>
+                        <h3>RS 99/- OFF</h3>
+                        <div class="coupon-box" id="couponCode">LADYWXYDCB</div>
+                        <button class="copy-btn" id="copyBtn">Copy</button>
+                        <p style="color:black;padding-top: 5px;">Use this Coupon code for your Next Order 😊</p>
+                    </div>
                 </div>
-                <div class="discount-message" id="discountMessage" style="padding: 10px;">
-                    <p style="color:black;">Congratulation🎉 You won a Reward of</p>
-                    <h3>RS 99/- OFF</h3>
-                    <div class="coupon-box" id="couponCode">LADYWXYDCB</div>
-                    <button class="copy-btn" id="copyBtn">Copy</button>
-                    <p style="color:black;">Use this Coupon code for your Next Order 😊</p>
-                    <br/><br/>
-                </div>
-            </div>
 
-            <!-- Action Buttons -->
-            <div class="action-buttons" style="padding-top:40px;padding-bottom:40px;">
-                <a class="action-btn" href="https://ladyfair.in/" target="_blank">
-                    <i class="fas fa-globe"></i> Go to Website
-                </a>
-                <a class="action-btn" href="https://play.google.com/store/apps/details?id=com.digital.ladyfair&pcampaignid=web_share" target="_blank">
-                    <i class="fas fa-mobile-alt"></i> Download App
-                </a>
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a class="action-btn" href="https://ladyfair.in/" target="_blank">
+                        <i class="fas fa-globe"></i> Go to Website
+                    </a>
+                    <a class="action-btn" href="https://play.google.com/store/apps/details?id=com.digital.ladyfair&pcampaignid=web_share" target="_blank">
+                        <i class="fas fa-mobile-alt"></i> Download App
+                    </a>
+                </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer style="background-color:#f93184;color:#fff;font-weight:600;font-size: 14px;">
+    <footer>
         <p>Developed by Trinetra Softech Limited</p>
     </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Scratch Card Functionality
@@ -261,13 +315,13 @@
         function scratch(e) {
             if (!isScratching) return;
 
-            let rect = scratchCanvas.getBoundingClientRect(); // Get canvas position
+            let rect = scratchCanvas.getBoundingClientRect();
             let x, y;
 
-            if (e.touches) { // Check if it's a touch event
+            if (e.touches) {
                 x = e.touches[0].clientX - rect.left;
                 y = e.touches[0].clientY - rect.top;
-            } else { // Otherwise, assume it's a mouse event
+            } else {
                 x = e.offsetX;
                 y = e.offsetY;
             }
@@ -276,76 +330,69 @@
             checkIfScratched();
         }
 
-
         function stopScratching() {
             isScratching = false;
         }
 
-        // New logic to track percentage of scratched area
         function checkIfScratched() {
             let imageData = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
             let pixels = imageData.data;
             let scratchedPixels = 0;
 
-            // Count the number of pixels that have been scratched (transparency is zero)
             for (let i = 0; i < pixels.length; i += 4) {
-                if (pixels[i + 3] === 0) { // Check alpha channel for transparency
+                if (pixels[i + 3] === 0) {
                     scratchedPixels++;
                 }
             }
 
-            // Calculate percentage of scratched area
             let scratchedPercentage = scratchedPixels / (pixels.length / 4);
 
-            if (scratchedPercentage > 0.30) { // Trigger after 30% of the card is scratched
+            if (scratchedPercentage > 0.30) {
                 showRibbons();
                 showDiscountMessage();
                 removeScratchLayer();
-                triggerConfetti(); // Trigger full-page confetti burst
+                triggerConfetti();
             }
         }
 
         function showRibbons() {
-            ribbons.style.display = 'block'; // Show ribbons when 30% of card is scratched
+            ribbons.style.display = 'block';
         }
 
         function showDiscountMessage() {
-            discountMessage.style.display = 'block'; // Show the discount message
+            discountMessage.style.display = 'block';
         }
 
         function removeScratchLayer() {
-            scratchCanvas.style.display = 'none'; // Remove the pink scratch layer
+            scratchCanvas.style.display = 'none';
         }
 
-        // Trigger Confetti falling effect behind the scratch card
         function triggerConfetti() {
             confetti({
-                particleCount: 20, // Number of confetti particles
-                angle: 90, // Angle of explosion (horizontal)
-                spread: 90, // Spread of confetti particles
-                origin: { x: 0, y: 0.5 }, // Origin at the left side of the screen (y = 0.5 for middle height)
+                particleCount: 20,
+                angle: 90,
+                spread: 90,
+                origin: { x: 0, y: 0.5 },
                 colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
-                zIndex: 1 // Keep behind the scratch card
+                zIndex: 1
             });
 
-            // Confetti blast from the center of the page (optional for a fuller effect)
             confetti({
-                particleCount: 10, // Number of confetti particles
-                angle: 90, // Angle of explosion (horizontal)
-                spread: 80, // Spread of confetti particles
-                origin: { x: 0.5, y: 0.5 }, // Origin at the center of the screen
+                particleCount: 10,
+                angle: 90,
+                spread: 80,
+                origin: { x: 0.5, y: 0.5 },
                 colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
-                zIndex: 1 // Keep behind the scratch card
+                zIndex: 1
             });
 
-            // Confetti blast from the right side of the page
             confetti({
-                particleCount: 20, // Number of confetti particles
-                angle: 90, // Angle of explosion (horizontal)
-                spread: 90, // Spread of confetti particles
-                origin: { x: 1, y: 0.5 }, // Origin at the right side of the screen (y = 0.5 for middle height)
+                particleCount: 20,
+                angle: 90,
+                spread: 90,
+                origin: { x: 1, y: 0.5 },
                 colors: ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ff9933'],
-                zIndex: 1 // Keep behind the scratch card
+                zIndex: 1
             });
         }
 

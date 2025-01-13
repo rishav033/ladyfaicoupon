@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page with Scratch Card</title>
+    <title>Ladyfair Scratch Card Offer</title>
     <!-- Include Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
@@ -195,12 +195,13 @@
                     <div class="ribbon-left"></div>
                     <div class="ribbon-right"></div>
                 </div>
-                <div class="discount-message" id="discountMessage">
+                <div class="discount-message" id="discountMessage" style="padding: 10px;">
                     <p style="color:black;">Congratulation🎉 You won a Reward of</p>
                     <h3>RS 99/- OFF</h3>
                     <div class="coupon-box" id="couponCode">LADYWXYDCB</div>
                     <button class="copy-btn" id="copyBtn">Copy</button>
                     <p style="color:black;">Use this Coupon code for your Next Order 😊</p>
+                    <br/><br/>
                 </div>
             </div>
 
@@ -255,12 +256,21 @@
         function scratch(e) {
             if (!isScratching) return;
 
-            let x = e.offsetX || e.changedTouches[0].clientX - scratchCanvas.offsetLeft;
-            let y = e.offsetY || e.changedTouches[0].clientY - scratchCanvas.offsetTop;
+            let rect = scratchCanvas.getBoundingClientRect(); // Get canvas position
+            let x, y;
+
+            if (e.touches) { // Check if it's a touch event
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else { // Otherwise, assume it's a mouse event
+                x = e.offsetX;
+                y = e.offsetY;
+            }
 
             ctx.clearRect(x - 20, y - 20, 40, 40);
             checkIfScratched();
         }
+
 
         function stopScratching() {
             isScratching = false;
@@ -306,7 +316,7 @@
         function triggerConfetti() {
             // Confetti blast from the left side of the page
             confetti({
-                particleCount: 250, // Number of confetti particles
+                particleCount: 50, // Number of confetti particles
                 angle: 90, // Angle of explosion (horizontal)
                 spread: 90, // Spread of confetti particles
                 origin: { x: 0, y: 0.5 }, // Origin at the left side of the screen (y = 0.5 for middle height)
@@ -315,7 +325,7 @@
 
             // Confetti blast from the center of the page (optional for a fuller effect)
             confetti({
-                particleCount: 200, // Number of confetti particles
+                particleCount: 50, // Number of confetti particles
                 angle: 90, // Angle of explosion (horizontal)
                 spread: 80, // Spread of confetti particles
                 origin: { x: 0.5, y: 0.5 }, // Origin at the center of the screen
@@ -324,7 +334,7 @@
 
             // Confetti blast from the right side of the page
             confetti({
-                particleCount: 250, // Number of confetti particles
+                particleCount: 50, // Number of confetti particles
                 angle: 90, // Angle of explosion (horizontal)
                 spread: 90, // Spread of confetti particles
                 origin: { x: 1, y: 0.5 }, // Origin at the right side of the screen (y = 0.5 for middle height)
